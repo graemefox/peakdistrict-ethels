@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak District Ethels — 95 Hills to Discover</title>
+    <link rel="icon" type="image/png" href="images/app_icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #8FA88B 0%, #4A7C3F 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .site-banner {
+            width: 100%;
+            display: block;
+            line-height: 0;
+        }
+        .site-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero {
+            min-height: calc(100vh - 30vw);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(74, 124, 63, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        @keyframes btn-bounce {
+            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+            40%  { transform: translateY(-9px) scale(1.03); box-shadow: 0 20px 40px rgba(74,124,63,0.4); }
+            70%  { transform: translateY(-4px) scale(1.01); box-shadow: 0 14px 34px rgba(74,124,63,0.3); }
+        }
+
+        .btn-bouncing {
+            animation: btn-bounce 2.2s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3d6b44 0%, #4A7C3F 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 124, 63, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4A7C3F;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .section-alt {
+            background: linear-gradient(135deg, #f5f2ed 0%, #ece7de 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #4A7C3F;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .section-alt .feature {
+            background: white;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4A7C3F;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Ethel story section */
+        .ethel-section {
+            background: linear-gradient(135deg, #4A7C3F 0%, #3d6b44 100%);
+            padding: 5rem 2rem;
+            color: white;
+        }
+
+        .ethel-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ethel-section h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .ethel-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 1.2rem;
+        }
+
+        .ethel-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Mascots */
+        .mascots {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .mascot {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            min-width: 180px;
+        }
+
+        .mascot:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .mascot.unlock {
+            border: 2px dashed #8FA88B;
+            background: linear-gradient(135deg, #f9fcf9 0%, #f0f6ef 100%);
+        }
+
+        .mascot-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .mascot-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #4A7C3F;
+            margin-bottom: 0.5rem;
+        }
+
+        .mascot-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .screenshot {
+            border-radius: 20px;
+            aspect-ratio: 9/17;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 8px solid #333;
+            background: #111;
+            position: relative;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: opacity 0.6s ease;
+        }
+
+        .unlock-badge {
+            display: inline-block;
+            margin-top: 0.6rem;
+            background: #8FA88B;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .journey {
+            background: linear-gradient(135deg, #8FA88B 0%, #4A7C3F 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .journey h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .journey p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #8FA88B;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .ethel-section h2 {
+                font-size: 2rem;
+            }
+
+            .ethel-section p {
+                font-size: 1.1rem;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .journey h2 {
+                font-size: 2rem;
+            }
+
+            .journey p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-banner">
+        <img src="images/peak_district_banner_thin.png" alt="Peak District Ethels">
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Peak District Ethels</h1>
+            <p class="tagline">95 Hills to Discover in England's First National Park</p>
+
+            <div class="cta-buttons">
+                <a href="https://play.google.com/store/apps/details?id=com.peakdistrictethels.myapp&hl=en" class="btn btn-primary btn-bouncing">📱 Download on Android</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">95</span>
+                    <span class="stat-label">Hills to Climb</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">📖</span>
+                    <span class="stat-label">Stories from the Moors</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">🎨</span>
+                    <span class="stat-label">Unlockable Companions</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">🏅</span>
+                    <span class="stat-label">Certificates &amp; Medals</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">🗺️</span>
+                    <span class="stat-label">Interactive Map</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Your Ultimate Hill-Walking Companion</h2>
+            <p class="section-subtitle">Track your family's Ethels adventure from first hill to all 95 — with surprises, stories, and unlockable companions to keep everyone excited for the next day out</p>
+
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">🗺️</span>
+                    <h3 class="feature-title">Interactive Map</h3>
+                    <p class="feature-description">Explore all 95 Ethels hills on a beautiful interactive offline map. See your conquered summits at a glance, colour-coded by the seven regions of the Peak District.</p>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">📍</span>
+                    <h3 class="feature-title">GPS Summit Detection</h3>
+                    <p class="feature-description">Your phone knows exactly where you are. Select a hill and watch the distance count down as you get closer — and when you finally step onto that summit, brace yourself for an awesome celebration! 🎉</p>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Smart Progress Tracking</h3>
+                    <p class="feature-description">Sort and filter hills by name, height, region, or completion status. Seven distinct regions from the wild northern moors to the limestone dales of the White Peak.</p>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Medals &amp; Certificates</h3>
+                    <p class="feature-description">Earn region completion medals, collect special certificates for iconic summits like Kinder Scout and Mam Tor, and unlock an Explorer's Diploma when you're really flying.</p>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">🎉</span>
+                    <h3 class="feature-title">Epic Celebrations</h3>
+                    <p class="feature-description">Reach a summit and the whole app bursts into life! Dress your moorland companion in new accessories, unlock stories about the Peak District's wild landscapes and hidden history, and earn rewards worth climbing for. Every hill deserves a moment.</p>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                    <h3 class="feature-title">Multiple Profiles</h3>
+                    <p class="feature-description">The whole family can join the adventure! Create separate profiles for everyone and each adventurer tracks their own hills, earns their own medals, and bonds with their own special companion. Yes, even The Dog 🐾</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ethel-section">
+        <div class="ethel-inner">
+            <h2>Who were the Ethels?</h2>
+            <p>Ethel Haythornthwaite spent decades campaigning tirelessly for the right of ordinary people to walk the Peak District's moors and hills freely. At a time when vast swathes of upland were closed to the public, she lobbied, organised, and fought — and won. In 1951, the Peak District became England's very first National Park.</p>
+            <p>These 95 hills are named in her honour. Every summit you reach is a summit that Ethel helped to open up. So lace up your boots — you're walking in her footsteps.</p>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Choose Your Moorland Companion</h2>
+            <p class="section-subtitle">Pick a mascot to join you on the moors — and unlock more as your collection of summits grows</p>
+
+            <div class="mascots">
+                <div class="mascot">
+                    <span class="mascot-emoji">🐑</span>
+                    <div class="mascot-name">Sheep</div>
+                    <p class="mascot-description">Your woolly friend, at home on any hillside</p>
+                </div>
+
+                <div class="mascot">
+                    <span class="mascot-emoji">🦊</span>
+                    <div class="mascot-name">Fox</div>
+                    <p class="mascot-description">Cunning and quick on any terrain</p>
+                </div>
+
+                <div class="mascot">
+                    <span class="mascot-emoji">🦡</span>
+                    <div class="mascot-name">Badger</div>
+                    <p class="mascot-description">Sturdy and dependable, never misses a summit</p>
+                </div>
+
+                <div class="mascot">
+                    <span class="mascot-emoji">🐿️</span>
+                    <div class="mascot-name">Red Squirrel</div>
+                    <p class="mascot-description">Energetic and playful, bounding from hill to hill</p>
+                </div>
+
+                <div class="mascot unlock">
+                    <span class="mascot-emoji">🦅</span>
+                    <div class="mascot-name">Osprey</div>
+                    <p class="mascot-description">Soaring above the reservoirs, seeing every summit from above</p>
+                    <span class="unlock-badge">Unlock at 10 hills</span>
+                </div>
+
+                <div class="mascot unlock">
+                    <span class="mascot-emoji">🐇</span>
+                    <div class="mascot-name">Mountain Hare</div>
+                    <p class="mascot-description">Swift and nimble, racing you to every top</p>
+                    <span class="unlock-badge">Unlock at 20 hills</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p class="section-subtitle">Beautiful, intuitive, and built for adventure</p>
+
+            <div class="screenshots">
+                <div class="screenshot">
+                    <img id="screen-a" src="images/screenshots/screenshot_01.jpeg" alt="App screenshot">
+                </div>
+                <div class="screenshot">
+                    <img id="screen-b" src="images/screenshots/screenshot_03.jpeg" alt="App screenshot">
+                </div>
+                <div class="screenshot">
+                    <img id="screen-c" src="images/screenshots/screenshot_05.jpeg" alt="App screenshot">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="journey">
+        <div class="container">
+            <h2>Step onto the Moors</h2>
+            <p>From the wild peat plateaux of the Dark Peak to the limestone edges and hidden dales of the White Peak — 95 summits are waiting. Discover what Ethel fought so hard to protect.</p>
+            <div class="cta-buttons">
+                <a href="https://play.google.com/store/apps/details?id=com.peakdistrictethels.myapp&hl=en" class="btn btn-secondary btn-bouncing">📱 Download on Android</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="mailto:graeme.fox87@gmail.com">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function rotateScreenshot(imgId, srcs, intervalMs) {
+            const img = document.getElementById(imgId);
+            let index = 0;
+            setInterval(() => {
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    index = (index + 1) % srcs.length;
+                    img.src = srcs[index];
+                    img.style.opacity = '1';
+                }, 600);
+            }, intervalMs);
+        }
+
+        rotateScreenshot('screen-a', [
+            'images/screenshots/screenshot_01.jpeg',
+            'images/screenshots/screenshot_02.jpeg',
+        ], 8000);
+
+        rotateScreenshot('screen-b', [
+            'images/screenshots/screenshot_03.jpeg',
+            'images/screenshots/screenshot_04.jpeg',
+        ], 9000);
+
+        rotateScreenshot('screen-c', [
+            'images/screenshots/screenshot_05.jpeg',
+            'images/screenshots/screenshot_06.jpeg',
+        ], 10000);
+    </script>
+</body>
+</html>
